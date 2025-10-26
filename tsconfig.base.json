@@ -13,8 +13,33 @@
     "lib": ["es2020", "dom"],
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "strict": true,
     "baseUrl": ".",
-    "paths": {}
+    "paths": {
+      "@rick-morty-portal/auth-data-access": ["libs/auth/data-access/src/index.ts"],
+      "@rick-morty-portal/auth-feature": ["libs/auth/feature/src/index.ts"],
+      "@rick-morty-portal/auth-shell": ["libs/auth/shell/src/index.ts"],
+      "@rick-morty-portal/auth-ui": ["libs/auth/ui/src/index.ts"],
+      "@rick-morty-portal/auth-util": ["libs/auth/util/src/index.ts"],
+      "@rick-morty-portal/shared-data-access": ["libs/shared/data-access/src/index.ts"],
+      "@rick-morty-portal/shared-ui": ["libs/shared/ui/src/index.ts"],
+      "@rick-morty-portal/shared-util": ["libs/shared/util/src/index.ts"],
+      "@rick-morty-portal/character-detail-util": ["libs/character-detail/util/src/index.ts"],
+      "@rick-morty-portal/character-detail-ui": ["libs/character-detail/ui/src/index.ts"],
+      "@rick-morty-portal/character-detail-shell": ["libs/character-detail/shell/src/index.ts"],
+      "@rick-morty-portal/character-detail-feature": ["libs/character-detail/feature/src/index.ts"],
+      "@rick-morty-portal/character-detail-data-access": [
+        "libs/character-detail/data-access/src/index.ts"
+      ],
+      "@rick-morty-portal/characters-list-data-access": [
+        "libs/characters-list/data-access/src/index.ts"
+      ],
+      "@rick-morty-portal/characters-list-feature": ["libs/characters-list/feature/src/index.ts"],
+      "@rick-morty-portal/characters-list-shell": ["libs/characters-list/shell/src/index.ts"],
+      "@rick-morty-portal/characters-list-ui": ["libs/characters-list/ui/src/index.ts"],
+      "@rick-morty-portal/characters-list-util": ["libs/characters-list/util/src/index.ts"]
+    }
   },
   "exclude": ["node_modules", "tmp"]
 }

@@ -1,101 +1,61 @@
-# RickMortyPortal
+## 1. UI Kit Selection
 
-<a alt="Nx logo" href="https://nx.dev" target="_blank" rel="noreferrer"><img src="https://raw.githubusercontent.com/nrwl/nx/master/images/nx-logo.png" width="45"></a>
+### Comparison Table
 
-✨ Your new, shiny [Nx workspace](https://nx.dev) is ready ✨.
+| Library             | Pros                                                                                                    | Cons                                                      | Example Users             |
+| ------------------- | ------------------------------------------------------------------------------------------------------- | --------------------------------------------------------- | ------------------------- |
+| **Angular Material** | ✅ Official Google support <br> ✅ Mature, stable, widely used <br> ✅ Excellent documentation & tutorials <br> ✅ Accessibility (a11y) built-in <br> ✅ Easy theming (dark/light/custom) | ❌ Limited to “basic” components only (cards, forms, etc.) <br> ❌ Visual style is common and less unique | Google, Enterprise apps   |
+| **PrimeNG**          | ✅ Huge set of ready-to-use components (charts, data tables, pickers, etc.) <br> ✅ Built-in themes and premium templates <br> ✅ Easy to prototype with | ❌ Larger bundle size <br> ❌ Some components require paid license <br> ❌ Doesn’t always follow Angular Material design standards | PrimeTek, Community apps  |
+| **NG-ZORRO (Ant Design)** | ✅ Based on Ant Design (professional, modern design system) <br> ✅ Rich component library <br> ✅ Popular in enterprise apps, especially in Asia | ❌ Documentation less polished than Angular Material <br> ❌ Ant Design look may not fit every project | Alibaba, Enterprise China |
 
-[Learn more about this workspace setup and its capabilities](https://nx.dev/getting-started/tutorials/angular-monorepo-tutorial?utm_source=nx_project&amp;utm_medium=readme&amp;utm_campaign=nx_projects) or run `npx nx graph` to visually explore what was created. Now, let's get you up to speed!
+---
 
-## Run tasks
+### Decision & Justification (ADR)
 
-To run the dev server for your app, use:
+**Chosen UI Kit: Angular Material** 🎨
 
-```sh
-npx nx serve portal
-```
+- **Rationale:**
+  1. **Official support** – Maintained by the Angular team with long-term stability and updates.  
+  2. **Meets requirements** – Our app needs a login page, app bar, lists, detail pages, search, pagination, and simple cards. Angular Material already provides all of these.  
+  3. **Accessibility and theming** – Provides WCAG-compliant components (components work with screen readers, keyboard shortcuts) with built-in accessibility and flexible theming.  
+  4. **Community and ecosystem** – Large community support, countless examples on StackOverflow and tutorials make it easier for interns and new developers to learn and fix issues quickly.  
 
-To create a production bundle:
+➡️ **PrimeNG** is powerful but heavier and introduces unnecessary complexity for our needs. **NG-ZORRO** is strong in design but not as aligned with Angular’s ecosystem and global usage. For a maintainable, future-proof, and simple solution, **Angular Material** is the best fit.
 
-```sh
-npx nx build portal
-```
+---
 
-To see all available targets to run for a project, run:
+## 2. Localization (i18n) Library Selection
 
-```sh
-npx nx show project portal
-```
+### Comparison Table
 
-These targets are either [inferred automatically](https://nx.dev/concepts/inferred-tasks?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects) or defined in the `project.json` or `package.json` files.
+| Library                  | Pros                                                                                     | Cons                                                           | Example Users         |
+| ------------------------ | ---------------------------------------------------------------------------------------- | -------------------------------------------------------------- | --------------------- |
+| **Angular built-in i18n** | ✅ Official Angular solution <br> ✅ Strong compile-time checks <br> ✅ Good for large-scale static translations | ❌ No runtime switching (requires rebuild to change language) <br> ❌ Less flexible for dynamic apps | Google, Enterprise    |
+| **ngx-translate**        | ✅ Mature, widely adopted <br> ✅ Runtime language switching <br> ✅ Simple to use and easy for beginners | ❌ Legacy focus, less actively maintained for Angular 15+ <br> ❌ More boilerplate needed | Community OSS projects |
+| **Transloco**            | ✅ Runtime language switching (our requirement) <br> ✅ Feature-based translations (fits Nx monorepo) <br> ✅ Lazy loading of translations <br> ✅ Actively maintained, modern API | ❌ Adds an extra dependency <br> ❌ Slightly higher learning curve compared to ngx-translate | OSS, Enterprise apps  |
 
-[More about running tasks in the docs &raquo;](https://nx.dev/features/run-tasks?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
+---
 
-## Add new projects
+### Decision & Justification (ADR)
 
-While you could add new projects to your workspace manually, you might want to leverage [Nx plugins](https://nx.dev/concepts/nx-plugins?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects) and their [code generation](https://nx.dev/features/generate-code?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects) feature.
+**Chosen Localization Library: Transloco** 🌍
 
-Use the plugin's generator to create new projects.
+- **Rationale:**
+  1. **Runtime switching** – Our app must allow users to change language (English ↔ Ukrainian) without reloading the page. Angular built-in i18n cannot do this.
+  2. **Feature-based design** – Transloco lets us keep translations inside each feature library (e.g., libs/auth, libs/characters-list), which matches Nx monorepo style.  
+  3. **Modern and maintained** – Fully compatible with Angular 15+ and actively updated, unlike ngx-translate which is slowly becoming legacy.  
+  4. **Flexibility** – Supports lazy loading translations, storing the active language in localStorage, and live updates without page reload.  
 
-To generate a new application, use:
+➡️ **ngx-translate** is still popular but not ideal for modern Angular. **Angular i18n** is strong but too static for our use case. **Transloco** provides the right balance of runtime flexibility, modularity, and modern support.
 
-```sh
-npx nx g @nx/angular:app demo
-```
+---
 
-To generate a new library, use:
+## ✅ Final Choice
 
-```sh
-npx nx g @nx/angular:lib mylib
-```
+- **UI Kit:** Angular Material  
+- **Localization Library:** Transloco  
 
-You can use `npx nx list` to get a list of installed plugins. Then, run `npx nx list <plugin-name>` to learn about more specific capabilities of a particular plugin. Alternatively, [install Nx Console](https://nx.dev/getting-started/editor-setup?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects) to browse plugins and generators in your IDE.
-
-[Learn more about Nx plugins &raquo;](https://nx.dev/concepts/nx-plugins?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects) | [Browse the plugin registry &raquo;](https://nx.dev/plugin-registry?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-
-## Set up CI!
-
-### Step 1
-
-To connect to Nx Cloud, run the following command:
-
-```sh
-npx nx connect
-```
-
-Connecting to Nx Cloud ensures a [fast and scalable CI](https://nx.dev/ci/intro/why-nx-cloud?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects) pipeline. It includes features such as:
-
-- [Remote caching](https://nx.dev/ci/features/remote-cache?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-- [Task distribution across multiple machines](https://nx.dev/ci/features/distribute-task-execution?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-- [Automated e2e test splitting](https://nx.dev/ci/features/split-e2e-tasks?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-- [Task flakiness detection and rerunning](https://nx.dev/ci/features/flaky-tasks?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-
-### Step 2
-
-Use the following command to configure a CI workflow for your workspace:
-
-```sh
-npx nx g ci-workflow
-```
-
-[Learn more about Nx on CI](https://nx.dev/ci/intro/ci-with-nx#ready-get-started-with-your-provider?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-
-## Install Nx Console
-
-Nx Console is an editor extension that enriches your developer experience. It lets you run tasks, generate code, and improves code autocompletion in your IDE. It is available for VSCode and IntelliJ.
-
-[Install Nx Console &raquo;](https://nx.dev/getting-started/editor-setup?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-
-## Useful links
-
-Learn more:
-
-- [Learn more about this workspace setup](https://nx.dev/getting-started/tutorials/angular-monorepo-tutorial?utm_source=nx_project&amp;utm_medium=readme&amp;utm_campaign=nx_projects)
-- [Learn about Nx on CI](https://nx.dev/ci/intro/ci-with-nx?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-- [Releasing Packages with Nx release](https://nx.dev/features/manage-releases?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-- [What are Nx plugins?](https://nx.dev/concepts/nx-plugins?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-
-And join the Nx community:
-- [Discord](https://go.nx.dev/community)
-- [Follow us on X](https://twitter.com/nxdevtools) or [LinkedIn](https://www.linkedin.com/company/nrwl)
-- [Our Youtube channel](https://www.youtube.com/@nxdevtools)
-- [Our blog](https://nx.dev/blog?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
+This combination provides:  
+- Simplicity and stability (Material components are official and future-proof).  
+- Flexibility (runtime language switching with Transloco).  
+- Alignment with Nx monorepo architecture (feature-based i18n and modular UI).  
