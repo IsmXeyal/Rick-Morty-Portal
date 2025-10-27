@@ -1,0 +1,24 @@
+echo "Running pre-merge-commit checks..."
+
+# 1. Run all tests
+npx nx run-many --target=test --all --parallel
+if [ $? -ne 0 ]; then
+  echo "Merge blocked: Tests failed."
+  exit 1
+fi
+
+# 2. Run TypeScript type-check
+npx tsc --noEmit
+if [ $? -ne 0 ]; then
+  echo "Merge blocked: Type errors."
+  exit 1
+fi
+
+# 3. Run Prettier formatting check
+npx prettier --check .
+if [ $? -ne 0 ]; then
+  echo "Merge blocked: Prettier check failed."
+  exit 1
+fi
+
+echo "Pre-merge-commit checks passed!"

@@ -1,0 +1,24 @@
+echo "Running pre-commit checks..."
+
+# 1. Run lint-staged (ESLint + Prettier on staged files)
+npx lint-staged
+if [ $? -ne 0 ]; then
+  echo "Lint/format failed!"
+  exit 1
+fi
+
+# 2. Run TypeScript type check only for affected projects
+npx nx affected --target=build --base=master --head=HEAD --parallel
+if [ $? -ne 0 ]; then
+  echo "Type errors in affected projects!"
+  exit 1
+fi
+
+# 3. Run unit tests (only affected)
+npx nx affected:test --base=master --head=HEAD --parallel --max-parallel=3
+if [ $? -ne 0 ]; then
+  echo "Tests failed!"
+  exit 1
+fi
+
+echo "Pre-commit checks passed!"
