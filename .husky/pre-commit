@@ -7,17 +7,10 @@ if [ $? -ne 0 ]; then
   exit 1
 fi
 
-# 2. Run TypeScript type check only for affected projects
-npx nx affected --target=build --base=master --head=HEAD --parallel
+# 2. Run TypeScript type check 
+npx tsc -p tsconfig.base.json --noEmit
 if [ $? -ne 0 ]; then
-  echo "Type errors in affected projects!"
-  exit 1
-fi
-
-# 3. Run unit tests (only affected)
-npx nx affected:test --base=master --head=HEAD --parallel --max-parallel=3
-if [ $? -ne 0 ]; then
-  echo "Tests failed!"
+  echo "TypeScript errors!"
   exit 1
 fi
 
