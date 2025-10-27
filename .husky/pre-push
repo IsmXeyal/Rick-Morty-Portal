@@ -1,0 +1,17 @@
+echo "Running pre-push checks..."
+
+# 1. Run all tests
+npx nx run-many --target=test --all --parallel
+if [ $? -ne 0 ]; then
+  echo "Push blocked: Tests failed."
+  exit 1
+fi
+
+# 2. Build project (portal app)
+npx nx build portal
+if [ $? -ne 0 ]; then
+  echo "Push blocked: Build failed."
+  exit 1
+fi
+
+echo "Pre-push checks passed!"
