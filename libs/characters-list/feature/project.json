@@ -4,7 +4,7 @@
   "sourceRoot": "libs/characters-list/feature/src",
   "prefix": "lib",
   "projectType": "library",
-  "tags": [],
+  "tags": ["type:feature", "scope:characters-list"],
   "targets": {
     "test": {
       "executor": "@nx/jest:jest",

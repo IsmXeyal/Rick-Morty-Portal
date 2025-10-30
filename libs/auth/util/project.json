@@ -4,7 +4,7 @@
   "sourceRoot": "libs/auth/util/src",
   "prefix": "lib",
   "projectType": "library",
-  "tags": [],
+  "tags": ["type:util", "scope:auth"],
   "targets": {
     "test": {
       "executor": "@nx/jest:jest",
