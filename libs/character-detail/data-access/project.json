@@ -4,7 +4,7 @@
   "sourceRoot": "libs/character-detail/data-access/src",
   "prefix": "lib",
   "projectType": "library",
-  "tags": [],
+  "tags": ["type:data-access", "scope:character-detail"],
   "targets": {
     "test": {
       "executor": "@nx/jest:jest",

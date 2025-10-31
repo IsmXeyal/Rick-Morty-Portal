@@ -4,7 +4,7 @@
   "sourceRoot": "libs/characters-list/shell/src",
   "prefix": "lib",
   "projectType": "library",
-  "tags": [],
+  "tags": ["type:shell", "scope:characters-list"],
   "targets": {
     "test": {
       "executor": "@nx/jest:jest",
