@@ -1,7 +1,7 @@
 import { inject } from '@angular/core';
 import { ResolveFn, ActivatedRouteSnapshot, Router } from '@angular/router';
 import { catchError, of } from 'rxjs';
-import { CharacterDetailService } from '@rick-morty-portal/character-detail-data-access';
+import { CharacterDetailService } from '../services/character-detail.service';
 import { CharacterDto } from '@rick-morty-portal/shared-data-access';
 
 export const CharacterDetailResolver: ResolveFn<CharacterDto | null> = (

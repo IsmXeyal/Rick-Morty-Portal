@@ -8,7 +8,6 @@ describe('CharacterDetailService', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [HttpClientTestingModule],
-      providers: [CharacterDetailService],
     });
     service = TestBed.inject(CharacterDetailService);
   });
