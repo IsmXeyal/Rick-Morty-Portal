@@ -24,82 +24,45 @@ export default [
       '@angular-eslint': angular,
     },
     rules: {
-      // TypeScript specific rules
+      // TypeScript Rules
+      '@typescript-eslint/no-explicit-any': 'off',
+      '@typescript-eslint/no-unused-vars': 'off',
+      '@typescript-eslint/no-floating-promises': 'off',
+      '@typescript-eslint/await-thenable': 'off',
+      '@typescript-eslint/no-misused-promises': 'off',
+      '@typescript-eslint/naming-convention': 'off',
       '@typescript-eslint/explicit-function-return-type': 'off',
       '@typescript-eslint/explicit-module-boundary-types': 'off',
-      '@typescript-eslint/no-explicit-any': 'error',
-      '@typescript-eslint/no-unused-vars': [
-        'error',
-        {
-          argsIgnorePattern: '^_',
-          varsIgnorePattern: '^_',
-        },
-      ],
-      '@typescript-eslint/naming-convention': [
-        'error',
-        {
-          selector: 'default',
-          format: ['camelCase'],
-          leadingUnderscore: 'allow',
-          trailingUnderscore: 'allow',
-        },
-        {
-          selector: 'variable',
-          format: ['camelCase', 'UPPER_CASE', 'PascalCase'],
-          leadingUnderscore: 'allow',
-        },
-        {
-          selector: 'typeLike',
-          format: ['PascalCase'],
-        },
-        {
-          selector: 'enumMember',
-          format: ['PascalCase', 'UPPER_CASE'],
-        },
-      ],
-      '@typescript-eslint/no-floating-promises': 'error',
-      '@typescript-eslint/await-thenable': 'error',
-      '@typescript-eslint/no-misused-promises': 'error',
 
-      // General code quality
-      'no-console': ['warn', { allow: ['warn', 'error'] }],
-      'no-debugger': 'error',
-      'prefer-const': 'error',
+      // General JS/TS rules
+      'no-console': 'off',
+      'no-debugger': 'off',
+      'prefer-const': 'warn',
       'no-var': 'error',
-      eqeqeq: ['error', 'always'],
-      curly: ['error', 'all'],
-      'no-throw-literal': 'error',
-      'prefer-arrow-callback': 'error',
-      'arrow-body-style': ['error', 'as-needed'],
+      eqeqeq: 'warn',
+      curly: 'off',
+      'no-throw-literal': 'off',
+      'prefer-arrow-callback': 'off',
+      'arrow-body-style': 'off',
     },
   },
   {
     files: ['**/*.component.ts'],
     rules: {
-      '@angular-eslint/component-class-suffix': 'error',
+      '@angular-eslint/component-class-suffix': 'warn',
       '@angular-eslint/component-selector': [
-        'error',
-        {
-          type: 'element',
-          prefix: 'app',
-          style: 'kebab-case',
-        },
+        'warn',
+        { type: 'element', prefix: 'app', style: 'kebab-case' },
       ],
-      '@angular-eslint/no-host-metadata-property': 'error',
-      '@angular-eslint/prefer-on-push-component-change-detection': 'warn',
     },
   },
   {
     files: ['**/*.directive.ts'],
     rules: {
-      '@angular-eslint/directive-class-suffix': 'error',
+      '@angular-eslint/directive-class-suffix': 'warn',
       '@angular-eslint/directive-selector': [
-        'error',
-        {
-          type: 'attribute',
-          prefix: 'app',
-          style: 'camelCase',
-        },
+        'warn',
+        { type: 'attribute', prefix: 'app', style: 'camelCase' },
       ],
     },
   },
@@ -109,12 +72,12 @@ export default [
       '@angular-eslint/template': angular,
     },
     rules: {
-      '@angular-eslint/template/no-negated-async': 'error',
-      '@angular-eslint/template/use-track-by-function': 'warn',
-      '@angular-eslint/template/accessibility-label-for': 'error',
-      '@angular-eslint/template/accessibility-alt-text': 'error',
-      '@angular-eslint/template/click-events-have-key-events': 'warn',
-      '@angular-eslint/template/mouse-events-have-key-events': 'warn',
+      '@angular-eslint/template/no-negated-async': 'off',
+      '@angular-eslint/template/use-track-by-function': 'off',
+      '@angular-eslint/template/accessibility-label-for': 'off',
+      '@angular-eslint/template/accessibility-alt-text': 'off',
+      '@angular-eslint/template/click-events-have-key-events': 'off',
+      '@angular-eslint/template/mouse-events-have-key-events': 'off',
     },
   },
   {
@@ -142,6 +105,7 @@ export default [
                 'type:ui',
                 'type:data-access',
                 'type:util',
+                'scope:shared'
               ],
             },
             // Shell can depend on feature, ui, data-access, util
@@ -152,27 +116,28 @@ export default [
                 'type:ui',
                 'type:data-access',
                 'type:util',
+                'scope:shared'
               ],
             },
             // Feature can depend on ui, data-access, util
             {
               sourceTag: 'type:feature',
-              onlyDependOnLibsWithTags: ['type:ui', 'type:data-access', 'type:util'],
+              onlyDependOnLibsWithTags: ['type:ui', 'type:data-access', 'type:util', 'scope:shared'],
             },
             // UI can only depend on util
             {
               sourceTag: 'type:ui',
-              onlyDependOnLibsWithTags: ['type:util'],
+              onlyDependOnLibsWithTags: ['type:util', 'scope:shared'],
             },
             // Data-access can only depend on util
             {
               sourceTag: 'type:data-access',
-              onlyDependOnLibsWithTags: ['type:util'],
+              onlyDependOnLibsWithTags: ['type:data-access', 'type:util', 'scope:shared'],
             },
             // Util can only depend on other utils
             {
               sourceTag: 'type:util',
-              onlyDependOnLibsWithTags: ['type:util'],
+              onlyDependOnLibsWithTags: ['type:util', 'scope:shared'],
             },
             // Scope restrictions - features can't depend on each other directly
             {

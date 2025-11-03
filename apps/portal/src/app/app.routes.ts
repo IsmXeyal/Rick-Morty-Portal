@@ -11,16 +11,22 @@ export const appRoutes: Routes = [
 
   {
     path: AppRoutes.Characters,
-    //canActivate: [authGuard],
     loadComponent: () =>
       import('@rick-morty-portal/characters-list-shell').then(m => m.CharactersListShell),
+    resolve: {
+      initial: () =>
+        import('@rick-morty-portal/characters-list-shell').then(m => m.CharactersListResolver),
+    },
   },
 
   {
     path: AppRoutes.CharacterDetail,
-    //canActivate: [authGuard],
     loadComponent: () =>
       import('@rick-morty-portal/character-detail-shell').then(m => m.CharacterDetailShell),
+    resolve: {
+      initial: () =>
+        import('@rick-morty-portal/character-detail-shell').then(m => m.CharacterDetailResolver),
+    },
   },
 
   { path: '**', redirectTo: AppRoutes.Characters },
