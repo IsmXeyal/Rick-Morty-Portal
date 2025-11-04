@@ -14,7 +14,13 @@ export const characterDetailGuard: CanActivateFn = (route: ActivatedRouteSnapsho
   }
 
   return service.getCharacterById(id).pipe(
-    map(() => true),
+    map(character => {
+      if (!character) {
+        router.navigate(['/characters']);
+        return false;
+      }
+      return true;
+    }),
     catchError(() => {
       router.navigate(['/characters']);
       return of(false);

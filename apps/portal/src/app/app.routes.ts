@@ -13,7 +13,7 @@ export const appRoutes: Routes = [
 
   {
     path: AppRoutes.Characters,
-    canActivate: [characterDetailGuard],
+    canActivate: [charactersListGuard],
     loadComponent: () =>
       import('@rick-morty-portal/characters-list-shell').then(m => m.CharactersListShell),
   },
